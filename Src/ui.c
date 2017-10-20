@@ -17,6 +17,7 @@ void saved_tip(void)
         oled_printf(15,0,"saved");
 }
 
+char place_setting_list[6][5]={"DN L","DN M","DN R","UP L","UP M","UP R"};
 void ui_display(void)
 {
     
@@ -83,18 +84,18 @@ void ui_display(void)
             oled_printf(16 ,7,"%d",right_speed);
             break;
         case place_setting_page:
-            oled_printf(0,2,"Blue  Dn -> %d",place_position[0]);
-            oled_printf(0,3,"Green Dn -> %d",place_position[1]);
-            oled_printf(0,4,"Red   Dn -> %d",place_position[2]);
-            oled_printf(0,5,"Blue  Up -> %d",place_position[3]);
-            oled_printf(0,6,"Green Up -> %d",place_position[4]);
-            oled_printf(0,7,"Red   Up -> %d",place_position[5]);
-            oled_printf(15,2,"Task");
-            oled_printf(15,4," %d",control.task);
-            if(control.item_index < 6)
-                oled_printf(13,control.item_index + 2,"<");
+            oled_printf(5,2,"Bl Dn > %s",control.task == 0?place_setting_list[place_position_task0[0]-1]:place_setting_list[place_position[0]-1]);
+            oled_printf(5,3,"Gr Dn > %s",control.task == 0?place_setting_list[place_position_task0[1]-1]:place_setting_list[place_position[1]-1]);
+            oled_printf(5,4,"Rd Dn > %s",control.task == 0?place_setting_list[place_position_task0[2]-1]:place_setting_list[place_position[2]-1]);
+            oled_printf(5,5,control.task == 0?"------------":"Bl Up > %s",place_setting_list[place_position[3]-1]);
+            oled_printf(5,6,control.task == 0?"------------":"Gr Up > %s",place_setting_list[place_position[4]-1]);
+            oled_printf(5,7,control.task == 0?"------------":"Rd Up > %s",place_setting_list[place_position[5]-1]);
+            oled_printf(0,2,"Task");
+            oled_printf(0,4," %d",control.task);
+            if(control.item_index > 0)
+                oled_printf(18,control.item_index + 1,"<");
             else
-                oled_printf(15,6,"^^^");
+                oled_printf(0,6,"^^^");
             
             break;
         case pid_page:

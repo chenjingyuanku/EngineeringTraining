@@ -19,8 +19,8 @@
 #define next_run_mode {stop_motor;turn_time = system_runtime_ms;control.run_mode++;}
 #define is_time_out_ms(n) (turn_time + n < system_runtime_ms)
 //                 速度方向，转动时间，下一个case
-#define robot_turn(spd,tm,n) {motor(spd,-(spd),1);if((turn_time+tm)<system_runtime_ms){set_run_mode(n);}}
-#define robot_turn_next(spd,tm) {motor(spd,-(spd),1);if((turn_time+tm)<system_runtime_ms){next_run_mode;}}
+#define robot_turn(spd,tm,n) {motor(spd,-(spd),1);if((turn_time+tm)<system_runtime_ms || (is_turn_left_in_place() && (spd < 0))){set_run_mode(n);}}
+#define robot_turn_next(spd,tm) {motor(spd,-(spd),1);if((turn_time+tm)<system_runtime_ms || (is_turn_left_in_place() && (spd < 0))){next_run_mode;}}
 #define unfixed {__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_unfixed_duty);__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_unfixed_duty);}
 #define fixed {__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_fixed_duty);__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_fixed_duty);}
 
@@ -38,6 +38,7 @@ uint16_t first_station_stop_speed = 150;
 
 
 control_type control;
+uint8_t place_position_task0[3] = {1,2,3};
 uint8_t place_position[6] = {1, 2, 3, 4, 5, 6};
 uint64_t system_runtime_ms = 0;
 uint8_t beep_flag = 0;
@@ -516,6 +517,13 @@ void run()
 }
 
 
+uint8_t is_turn_left_in_place()
+{
+    if(ad1_nor > 3 || ad2_nor > 3 || ad3_nor > 3)
+        return 1;
+    return 0;
+}
+
 
 
 uint8_t action_num = 100;
@@ -835,7 +843,9 @@ void work(void)
                 cnt = 0;
                 if(control.task == 0)
                 {
-                    set_run_mode(31);
+                    //机械手归位
+                    action_num = 0;
+                    set_run_mode(34);
                 }
                 else
                 {
@@ -950,7 +960,7 @@ void work(void)
             break;
         case 37:
             run();
-            if (is_time_out_ms(400))
+            if (is_time_out_ms(900 - control.speed))
             {
                 beep_stop;
                 next_run_mode;
@@ -1115,7 +1125,7 @@ void work(void)
             break;
         case 67:
             run();
-            if (is_time_out_ms(400))
+            if (is_time_out_ms(900 - control.speed))
             {
                 next_run_mode;
             }

@@ -1824,18 +1824,18 @@
       </Doc>
       <Doc>
         <Name>..\Src\control.c</Name>
-        <ColumnNumber>42</ColumnNumber>
-        <TopLine>1064</TopLine>
-        <CurrentLine>1086</CurrentLine>
+        <ColumnNumber>16</ColumnNumber>
+        <TopLine>928</TopLine>
+        <CurrentLine>856</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
       </Doc>
       <Doc>
         <Name>..\Src\ui.c</Name>
-        <ColumnNumber>73</ColumnNumber>
-        <TopLine>91</TopLine>
-        <CurrentLine>111</CurrentLine>
+        <ColumnNumber>68</ColumnNumber>
+        <TopLine>76</TopLine>
+        <CurrentLine>89</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
@@ -1851,9 +1851,9 @@
       </Doc>
       <Doc>
         <Name>..\Inc\control.h</Name>
-        <ColumnNumber>22</ColumnNumber>
-        <TopLine>85</TopLine>
-        <CurrentLine>87</CurrentLine>
+        <ColumnNumber>35</ColumnNumber>
+        <TopLine>34</TopLine>
+        <CurrentLine>46</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
@@ -1887,9 +1887,9 @@
       </Doc>
       <Doc>
         <Name>..\Src\key.c</Name>
-        <ColumnNumber>28</ColumnNumber>
-        <TopLine>256</TopLine>
-        <CurrentLine>273</CurrentLine>
+        <ColumnNumber>72</ColumnNumber>
+        <TopLine>46</TopLine>
+        <CurrentLine>200</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
@@ -1905,9 +1905,9 @@
       </Doc>
       <Doc>
         <Name>..\Src\at24c02.c</Name>
-        <ColumnNumber>4</ColumnNumber>
-        <TopLine>316</TopLine>
-        <CurrentLine>343</CurrentLine>
+        <ColumnNumber>45</ColumnNumber>
+        <TopLine>323</TopLine>
+        <CurrentLine>351</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

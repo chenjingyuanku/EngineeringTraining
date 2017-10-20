@@ -57,6 +57,11 @@ void key_up_click(void* btn)
         case param_page: 
             break;
         case place_setting_page:
+            if(control.task == 0)
+            {
+                if(control.item_index >= 3)
+                    control.item_index = 3;
+            }
             if(control.item_index >= 6)
                     control.item_index = 6;
             break;
@@ -96,11 +101,20 @@ void key_add_click(void* btn)
         case param_page:
             break;
         case place_setting_page:
-            if(control.item_index < 6)
+            if(control.item_index > 0)
             {
-                place_position[control.item_index] ++;
-                if(place_position[control.item_index] > 6)
-                    place_position[control.item_index] = 6;
+                if(control.task == 0)
+                {
+                    place_position_task0[control.item_index - 1] ++;
+                    if(place_position_task0[control.item_index - 1] > 3)
+                        place_position_task0[control.item_index - 1] = 3;
+                }
+                else
+                {
+                    place_position[control.item_index - 1] ++;
+                    if(place_position[control.item_index - 1] > 6)
+                        place_position[control.item_index - 1] = 6;
+                }
             }
             else
             {
@@ -177,10 +191,19 @@ void key_sub_click(void* btn)
         case param_page:
             break;
         case place_setting_page:
-            if(control.item_index < 6)
+            if(control.item_index > 0)
             {
-                if(place_position[control.item_index] > 1)
-                    place_position[control.item_index] --;
+                
+                if(control.task == 0)
+                {
+                    if(place_position_task0[control.item_index - 1] > 1)
+                        place_position_task0[control.item_index - 1] --;
+                }
+                else
+                {
+                    if(place_position[control.item_index - 1] > 1)
+                        place_position[control.item_index - 1] --;
+                }
             }
             else
             {

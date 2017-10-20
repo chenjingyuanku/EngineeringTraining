@@ -43,6 +43,7 @@ typedef struct
 
 
 extern uint8_t place_position[6];
+extern uint8_t place_position_task0[3];
 extern control_type control;
 extern pid_type pid;
 extern uint64_t system_runtime_ms;

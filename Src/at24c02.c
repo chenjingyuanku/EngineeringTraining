@@ -270,6 +270,9 @@ void save_parama(void)
         write_u16_to_tx_buf(get_and_lift_goods_time[5],111);
         write_u16_to_tx_buf(first_station_stop_speed,113);
         
+        Tx_Buffer[115] = place_position_task0[0];
+        Tx_Buffer[116] = place_position_task0[1];
+        Tx_Buffer[117] = place_position_task0[2];
         
         STMFLASH_Write(FLASH_WriteAddress, Tx_Buffer, FLASH_TESTSIZE);
         save_flag = 0;
@@ -343,6 +346,9 @@ void read_parama(void)
     read_u16_to_tx_buf(&first_station_stop_speed,113);
     
     
+    place_position_task0[0] = Rx_Buffer[115];
+    place_position_task0[1] = Rx_Buffer[116];
+    place_position_task0[2] = Rx_Buffer[117];
         
     
 }
