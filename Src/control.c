@@ -1077,13 +1077,13 @@ void work(void)
             if(is_right_sensor_valid)
             {
                 current_step = second_station;
+                //放置物料
+                action_num = place_goods_actions[place_position[goods_num] - 1];
                 next_run_mode;
             }
             break;
         case 63:
-            //放置物料
-            action_num = lift_goods_actions[place_position[goods_num] - 1];
-            if (is_time_out_ms(lift_goods_time[place_position[goods_num] - 1]))
+            if (is_time_out_ms(place_goods_actions[place_position[goods_num] - 1]))
             {
                 current_step = downhill_road;
                 next_run_mode;
