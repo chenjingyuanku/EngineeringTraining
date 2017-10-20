@@ -236,7 +236,7 @@ void save_parama(void)
         write_u16_to_tx_buf(turn_right_time,55);
         
         write_u16_to_tx_buf(turn_right_spd,57);
-        write_u16_to_tx_buf(turn_left_time,59);
+        write_u16_to_tx_buf(first_station_stop_speed,59);
         write_u16_to_tx_buf(turn_left_spd,61);
         write_u16_to_tx_buf(second_station_speed,63);
         
@@ -268,11 +268,10 @@ void save_parama(void)
         write_u16_to_tx_buf(get_and_lift_goods_time[3],107);
         write_u16_to_tx_buf(get_and_lift_goods_time[4],109);
         write_u16_to_tx_buf(get_and_lift_goods_time[5],111);
-        write_u16_to_tx_buf(first_station_stop_speed,113);
         
-        Tx_Buffer[115] = place_position_task0[0];
-        Tx_Buffer[116] = place_position_task0[1];
-        Tx_Buffer[117] = place_position_task0[2];
+        Tx_Buffer[113] = place_position_task0[0];
+        Tx_Buffer[114] = place_position_task0[1];
+        Tx_Buffer[115] = place_position_task0[2];
         
         STMFLASH_Write(FLASH_WriteAddress, Tx_Buffer, FLASH_TESTSIZE);
         save_flag = 0;
@@ -311,7 +310,7 @@ void read_parama(void)
     read_u16_to_tx_buf(&turn_right_time,55);
     
     read_u16_to_tx_buf(&turn_right_spd,57);
-    read_u16_to_tx_buf(&turn_left_time,59);
+    read_u16_to_tx_buf(&first_station_stop_speed,59);
     read_u16_to_tx_buf(&turn_left_spd,61);
     read_u16_to_tx_buf(&second_station_speed,63);
         
@@ -343,12 +342,11 @@ void read_parama(void)
     read_u16_to_tx_buf(&get_and_lift_goods_time[3],107);
     read_u16_to_tx_buf(&get_and_lift_goods_time[4],109);
     read_u16_to_tx_buf(&get_and_lift_goods_time[5],111);
-    read_u16_to_tx_buf(&first_station_stop_speed,113);
     
     
-    place_position_task0[0] = Rx_Buffer[115];
-    place_position_task0[1] = Rx_Buffer[116];
-    place_position_task0[2] = Rx_Buffer[117];
+    place_position_task0[0] = Rx_Buffer[113];
+    place_position_task0[1] = Rx_Buffer[114];
+    place_position_task0[2] = Rx_Buffer[115];
         
     
 }

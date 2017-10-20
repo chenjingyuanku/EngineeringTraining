@@ -113,8 +113,7 @@ void ui_display(void)
             oled_printf(0,3,"baffle_speed    %d",baffle_speed);
             oled_printf(0,4,"turn_right_time %d",turn_right_time);
             oled_printf(0,5,"turn_right_spd  %d",turn_right_spd);
-            oled_printf(0,6,"turn_left_time  %d",turn_left_time);
-            oled_printf(0,7,"turn_left_spd   %d",turn_left_spd);
+            oled_printf(0,6,"turn_left_spd   %d",turn_left_spd);
             oled_printf(15,control.item_index + 2,">");
             break;
         case uphill_page:

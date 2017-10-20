@@ -14,13 +14,16 @@
 #include "oled.h"
 #include "usart.h"
 
+#define myAbs(n) ((n)>0?(n):-(n))
+
 #define stop_motor motor(0,0,0)
 #define set_run_mode(n) {stop_motor;turn_time = system_runtime_ms;control.run_mode=n;}
 #define next_run_mode {stop_motor;turn_time = system_runtime_ms;control.run_mode++;}
 #define is_time_out_ms(n) (turn_time + n < system_runtime_ms)
 //                 速度方向，转动时间，下一个case
 #define robot_turn(spd,tm,n) {motor(spd,-(spd),1);if(((turn_time+tm)<system_runtime_ms && (spd > 0))|| (is_turn_left_in_place() && (spd < 0))){set_run_mode(n);}}
-#define robot_turn_next(spd,tm) {motor(spd,-(spd),1);if(((turn_time+tm)<system_runtime_ms && (spd > 0))|| (is_turn_left_in_place() && (spd < 0))){next_run_mode;}}
+#define robot_turn_right_next(spd,tm) {motor(myAbs(spd),-(myAbs(spd)),1);if(((turn_time+tm)<system_runtime_ms && is_turn_right_in_place(0))){is_turn_right_in_place(1);next_run_mode;}}
+#define robot_turn_left_next(spd) {motor(-myAbs(spd),myAbs(spd),1);if(is_turn_left_in_place()){next_run_mode;}}
 #define unfixed {__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_unfixed_duty);__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_unfixed_duty);}
 #define fixed {__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_fixed_duty);__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_fixed_duty);}
 
@@ -31,7 +34,6 @@ uint16_t uphill_speed = 650;
 uint16_t baffle_speed = 400;
 uint16_t turn_right_time = 330;
 uint16_t turn_right_spd = 800;
-uint16_t turn_left_time = 200;
 uint16_t turn_left_spd = 600;
 uint16_t second_station_speed = 200;
 uint16_t first_station_stop_speed = 150;
@@ -59,7 +61,6 @@ uint16_t get_goods_time[6]={5300,5200,5300,5800,5800,5800};
 uint16_t lift_goods_time[6]={3800,3800,3800,3800,3800,3800};
 //放置货物时间
 uint16_t place_goods_time[6]={4100,4100,4100,4100,4100,4100};
-
 //单抓 + 举起货物动作时间
 uint16_t get_and_lift_goods_time[6]={5000,5000,5000,5000,5000,5000};
 
@@ -529,6 +530,23 @@ uint8_t is_turn_left_in_place()
     }
     return 0;
 }
+uint8_t is_turn_right_in_place(uint8_t clr_flag)
+{
+    static uint8_t pass_left_sensor = 0;
+    if(clr_flag)
+    {
+        pass_left_sensor = 0;
+        return 0;
+    }
+    if(is_left_left_valid || is_head2_valid)
+        pass_left_sensor = 1;
+    else if(pass_left_sensor)
+    {
+        pass_left_sensor = 1;
+        return 1;
+    }
+    return 0;
+}
 
 
 
@@ -705,7 +723,7 @@ void work(void)
             break;
         case 14:
             //右转一点
-            robot_turn_next(turn_right_spd,turn_right_time);
+            robot_turn_right_next(turn_right_spd,turn_right_time);
             break;
         case 15:
             //停顿0.3秒
@@ -733,7 +751,7 @@ void work(void)
             break;
         case 18:
             //左转一点
-            robot_turn_next(-turn_left_spd,turn_left_time);
+            robot_turn_left_next(turn_left_spd);
             break;
         case 19:
             //继续循迹至坡道
@@ -1074,7 +1092,7 @@ void work(void)
             break;
         case 55:
             //右转一点
-            robot_turn_next(800,turn_right_time);
+            robot_turn_right_next(turn_right_spd,turn_right_time);
             break;
         case 56:
             //停顿0.3秒
@@ -1102,7 +1120,7 @@ void work(void)
             break;
         case 59:
             //左转一点
-            robot_turn_next(-600,200);
+            robot_turn_left_next(turn_left_spd);
             break;
         case 60:
             //继续循迹至坡道
@@ -1192,10 +1210,6 @@ void work(void)
             break;
         case 69:
             break;
-        
-        
-        
-        
         }
     }
     else

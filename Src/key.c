@@ -70,8 +70,8 @@ void key_up_click(void* btn)
                     control.item_index = 5;
             break;
         case baffle_page:
-            if(control.item_index >= 5)
-                    control.item_index = 5;
+            if(control.item_index >= 4)
+                    control.item_index = 4;
             break;
         case uphill_page:
             if(control.item_index >= 1)
@@ -151,9 +151,7 @@ void key_add_click(void* btn)
                     break;
                 case 3:turn_right_spd += 10;
                     break;
-                case 4:turn_left_time += 10;
-                    break;
-                case 5:turn_left_spd += 10;
+                case 4:turn_left_spd += 10;
                     break;
                 
             }
@@ -248,10 +246,6 @@ void key_sub_click(void* btn)
                         turn_right_spd -= 10;
                     break;
                 case 4:
-                    if(turn_left_time >= 10)
-                        turn_left_time -= 10;
-                    break;
-                case 5:
                     if(turn_left_spd >= 10)
                         turn_left_spd -= 10;
                     break;

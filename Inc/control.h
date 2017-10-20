@@ -79,7 +79,6 @@ extern uint16_t uphill_speed ;
 extern uint16_t baffle_speed ;
 extern uint16_t turn_right_time ;
 extern uint16_t turn_right_spd;
-extern uint16_t turn_left_time;
 extern uint16_t turn_left_spd;
 extern uint16_t second_station_speed;
 extern uint16_t first_station_stop_speed;
