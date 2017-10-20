@@ -1916,7 +1916,7 @@
         <Name>..\Inc\ui.h</Name>
         <ColumnNumber>0</ColumnNumber>
         <TopLine>1</TopLine>
-        <CurrentLine>20</CurrentLine>
+        <CurrentLine>22</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
