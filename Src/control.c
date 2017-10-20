@@ -409,7 +409,7 @@ void baffle_second_stop(uint8_t mode)
     {
         if(spd > baffle_speed)
             spd = baffle_speed;
-        spd -= baffle_speed/18;
+        spd -= baffle_speed/25;
         if(spd > 0)
             motor(spd, (spd), 0);
         else
@@ -985,12 +985,13 @@ void work(void)
             if (is_right_sensor_valid)
             {
                 current_step = first_station;
+                //抓下排红
+                action_num = get_and_lift_goods_actions[goods_num];
                 next_run_mode;
             }
             break;
         case 52:
-            //停车2秒 抓下排红
-            action_num = get_and_lift_goods_actions[goods_num];
+            //停车2秒
             if (is_time_out_ms(get_and_lift_goods_time[goods_num]))
             {
                 next_run_mode;
