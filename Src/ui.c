@@ -83,12 +83,12 @@ void ui_display(void)
             oled_printf(16 ,7,"%d",right_speed);
             break;
         case place_setting_page:
-            oled_printf(0,2,"Blue  1 -> %d",place_position[0]);
-            oled_printf(0,3,"Blue  2 -> %d",place_position[1]);
-            oled_printf(0,4,"Green 1 -> %d",place_position[2]);
-            oled_printf(0,5,"Green 2 -> %d",place_position[3]);
-            oled_printf(0,6,"Red   1 -> %d",place_position[4]);
-            oled_printf(0,7,"Red   2 -> %d",place_position[5]);
+            oled_printf(0,2,"Blue  Dn -> %d",place_position[0]);
+            oled_printf(0,3,"Green Dn -> %d",place_position[1]);
+            oled_printf(0,4,"Red   Dn -> %d",place_position[2]);
+            oled_printf(0,5,"Blue  Up -> %d",place_position[3]);
+            oled_printf(0,6,"Green Up -> %d",place_position[4]);
+            oled_printf(0,7,"Red   Up -> %d",place_position[5]);
             oled_printf(15,2,"Task");
             oled_printf(15,4," %d",control.task);
             if(control.item_index < 6)
@@ -127,36 +127,36 @@ void ui_display(void)
             oled_printf(0,2,"get down L    %d",get_goods_time[0]);
             oled_printf(0,3,"get down M    %d",get_goods_time[1]);
             oled_printf(0,4,"get down R    %d",get_goods_time[2]);
-            oled_printf(0,5,"get up L      %d",get_goods_time[3]);
-            oled_printf(0,6,"get up M      %d",get_goods_time[4]);
-            oled_printf(0,7,"get up R      %d",get_goods_time[5]);
+            oled_printf(0,5,"get up   L    %d",get_goods_time[3]);
+            oled_printf(0,6,"get up   M    %d",get_goods_time[4]);
+            oled_printf(0,7,"get up   R    %d",get_goods_time[5]);
             oled_printf(13,control.item_index + 2,">");
             break;
         case lift_goods_time_page:
             oled_printf(0,2,"lift down L    %d",lift_goods_time[0]);
             oled_printf(0,3,"lift down M    %d",lift_goods_time[1]);
             oled_printf(0,4,"lift down R    %d",lift_goods_time[2]);
-            oled_printf(0,5,"lift up L      %d",lift_goods_time[3]);
-            oled_printf(0,6,"lift up M      %d",lift_goods_time[4]);
-            oled_printf(0,7,"lift up R      %d",lift_goods_time[5]);
+            oled_printf(0,5,"lift up   L    %d",lift_goods_time[3]);
+            oled_printf(0,6,"lift up   M    %d",lift_goods_time[4]);
+            oled_printf(0,7,"lift up   R    %d",lift_goods_time[5]);
             oled_printf(14,control.item_index + 2,">");
             break;
         case place_goods_time_page:
             oled_printf(0,2,"place down L    %d",place_goods_time[0]);
             oled_printf(0,3,"place down M    %d",place_goods_time[1]);
             oled_printf(0,4,"place down R    %d",place_goods_time[2]);
-            oled_printf(0,5,"place up L      %d",place_goods_time[3]);
-            oled_printf(0,6,"place up M      %d",place_goods_time[4]);
-            oled_printf(0,7,"place up R      %d",place_goods_time[5]);
+            oled_printf(0,5,"place up   L    %d",place_goods_time[3]);
+            oled_printf(0,6,"place up   M    %d",place_goods_time[4]);
+            oled_printf(0,7,"place up   R    %d",place_goods_time[5]);
             oled_printf(15,control.item_index + 2,">");
             break;
         case get_and_lift_goods_time_page:
             oled_printf(0,2,"g & l down L    %d",get_and_lift_goods_time[0]);
             oled_printf(0,3,"g & l down M    %d",get_and_lift_goods_time[1]);
             oled_printf(0,4,"g & l down R    %d",get_and_lift_goods_time[2]);
-            oled_printf(0,5,"g & l up L      %d",get_and_lift_goods_time[3]);
-            oled_printf(0,6,"g & l up M      %d",get_and_lift_goods_time[4]);
-            oled_printf(0,7,"g & l up R      %d",get_and_lift_goods_time[5]);
+            oled_printf(0,5,"g & l up   L    %d",get_and_lift_goods_time[3]);
+            oled_printf(0,6,"g & l up   M    %d",get_and_lift_goods_time[4]);
+            oled_printf(0,7,"g & l up   R    %d",get_and_lift_goods_time[5]);
             oled_printf(15,control.item_index + 2,">");
             break;
         

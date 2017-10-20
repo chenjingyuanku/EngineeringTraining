@@ -52,13 +52,12 @@ const uint8_t lift_goods_actions[6]={7,8,9,10,11,12};
 const uint8_t place_goods_actions[6]={13,14,15,16,17,18};
 //单抓 + 举起货物动作组编号
 const uint8_t get_and_lift_goods_actions[6]={19,20,21,22,23,24};
-
 //每组抓取动作执行时间
 uint16_t get_goods_time[6]={5300,5200,5300,5800,5800,5800};
 //举起货物时间
-uint16_t lift_goods_time[6]={3000,3000,3000,3000,3000,3000};
+uint16_t lift_goods_time[6]={3800,3800,3800,3800,3800,3800};
 //放置货物时间
-uint16_t place_goods_time[6]={3000,3000,3000,3000,3000,3000};
+uint16_t place_goods_time[6]={4100,4100,4100,4100,4100,4100};
 
 //单抓 + 举起货物动作时间
 uint16_t get_and_lift_goods_time[6]={5000,5000,5000,5000,5000,5000};

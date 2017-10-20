@@ -129,8 +129,6 @@ uint8_t servo_tx_buf[7] = {0x55,0x55,0x05,0x06,0x00,0x01,0x00};
     __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_unfixed_duty);
     
     
-    
-    
     //初始化ADC
     HAL_ADC_Start_DMA(&hadc1,adc_values,7);
     //按键任务初始化

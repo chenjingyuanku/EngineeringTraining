@@ -17,4 +17,5 @@ enum menu_page_num
     get_and_lift_goods_time_page,
     MAX_PAGE
 };
+
 #endif
