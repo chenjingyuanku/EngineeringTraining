@@ -927,6 +927,12 @@ void work(void)
             }
             break;
         case 34:
+            if (is_time_out_ms(1500))
+            {
+                next_run_mode;
+            }
+            break;
+        case 35:
             //抓完了，下坡循迹2.5s
             run();
             if (is_time_out_ms(1500))
@@ -934,7 +940,7 @@ void work(void)
                 next_run_mode;
             }
             break;
-        case 35:
+        case 36:
             //最后一个弯停顿一下
             run();
             if (!(ad1_nor > 2 || ad2_nor > 2 || ad3_nor > 2 || is_head_left_sensor_valid || is_head_right_sensor_valid))
@@ -942,7 +948,7 @@ void work(void)
                 next_run_mode;
             }
             break;
-        case 36:
+        case 37:
             run();
             if (is_time_out_ms(400))
             {
@@ -950,9 +956,9 @@ void work(void)
                 next_run_mode;
             }
             break;
-        case 37:
-            break;
         case 38:
+            break;
+        case 39:
             break;
         
         
@@ -1080,11 +1086,17 @@ void work(void)
             {
                 current_step = downhill_road;
                 next_run_mode;
+                //机械手归位
+                action_num = 0;
             }
             break;
         case 64:
-            //机械手归位
-            action_num = 0;
+            if (is_time_out_ms(1500))
+            {
+                next_run_mode;
+            }
+            break;
+        case 65:
             //抓完了，下坡循迹2.5s
             run();
             if (is_time_out_ms(1500))
@@ -1092,7 +1104,7 @@ void work(void)
                 next_run_mode;
             }
             break;
-        case 65:
+        case 66:
             //最后一个弯停顿一下
             run();
             if (!(ad1_nor > 2 || ad2_nor > 2 || ad3_nor > 2 || is_head_left_sensor_valid || is_head_right_sensor_valid))
@@ -1100,14 +1112,14 @@ void work(void)
                 next_run_mode;
             }
             break;
-        case 66:
+        case 67:
             run();
             if (is_time_out_ms(400))
             {
                 next_run_mode;
             }
             break;
-        case 67:
+        case 68:
             beep_stop;
             current_step = 0;
             goods_num++;
@@ -1120,7 +1132,7 @@ void work(void)
                 next_run_mode;
             }
             break;
-        case 68:
+        case 69:
             break;
         
         
