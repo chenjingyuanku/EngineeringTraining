@@ -19,8 +19,8 @@
 #define next_run_mode {stop_motor;turn_time = system_runtime_ms;control.run_mode++;}
 #define is_time_out_ms(n) (turn_time + n < system_runtime_ms)
 //                 速度方向，转动时间，下一个case
-#define robot_turn(spd,tm,n) {motor(spd,-(spd),1);if((turn_time+tm)<system_runtime_ms || (is_turn_left_in_place() && (spd < 0))){set_run_mode(n);}}
-#define robot_turn_next(spd,tm) {motor(spd,-(spd),1);if((turn_time+tm)<system_runtime_ms || (is_turn_left_in_place() && (spd < 0))){next_run_mode;}}
+#define robot_turn(spd,tm,n) {motor(spd,-(spd),1);if(((turn_time+tm)<system_runtime_ms && (spd > 0))|| (is_turn_left_in_place() && (spd < 0))){set_run_mode(n);}}
+#define robot_turn_next(spd,tm) {motor(spd,-(spd),1);if(((turn_time+tm)<system_runtime_ms && (spd > 0))|| (is_turn_left_in_place() && (spd < 0))){next_run_mode;}}
 #define unfixed {__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_unfixed_duty);__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_unfixed_duty);}
 #define fixed {__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_fixed_duty);__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_fixed_duty);}
 
@@ -519,8 +519,14 @@ void run()
 
 uint8_t is_turn_left_in_place()
 {
-    if(ad1_nor > 3 || ad2_nor > 3 || ad3_nor > 3)
+    static uint8_t pass_left_sensor = 0;
+    if(is_head_left_sensor_valid || ad1_nor > 3)
+        pass_left_sensor = 1;
+    if(pass_left_sensor &&(ad2_nor > 3 || ad3_nor > 3))
+    {
+        pass_left_sensor = 0;
         return 1;
+    }
     return 0;
 }
 
