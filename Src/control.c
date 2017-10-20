@@ -779,15 +779,31 @@ void work(void)
             break;
         case 23:
             //放置物料1
-            if(cnt < 5)
+            if(control.task == 0)
             {
-                action_num = place_goods_actions[place_position[0] - 1];
-                cnt = 10;
+                if(cnt < 5)
+                {
+                    action_num = place_goods_actions[place_position_task0[0] - 1];
+                    cnt = 10;
+                }
+                if (is_time_out_ms(place_goods_time[place_position_task0[0] - 1]))
+                {
+                    cnt = 0;
+                    next_run_mode;
+                }
             }
-            if (is_time_out_ms(place_goods_time[place_position[0] - 1]))
+            else
             {
-                cnt = 0;
-                next_run_mode;
+                if(cnt < 5)
+                {
+                    action_num = place_goods_actions[place_position[0] - 1];
+                    cnt = 10;
+                }
+                if (is_time_out_ms(place_goods_time[place_position[0] - 1]))
+                {
+                    cnt = 0;
+                    next_run_mode;
+                }
             }
             break;
             
@@ -807,15 +823,31 @@ void work(void)
             break;
         case 25:
             //放置物料2
-            if(cnt < 5)
+            if(control.task == 0)
             {
-                action_num = place_goods_actions[place_position[1] - 1];
-                cnt = 10;
+                if(cnt < 5)
+                {
+                    action_num = place_goods_actions[place_position_task0[1] - 1];
+                    cnt = 10;
+                }
+                if (is_time_out_ms(place_goods_time[place_position_task0[1] - 1]))
+                {
+                    cnt = 0;
+                    next_run_mode;
+                }
             }
-            if (is_time_out_ms(place_goods_time[place_position[1] - 1]))
+            else
             {
-                cnt = 0;
-                next_run_mode;
+                if(cnt < 5)
+                {
+                    action_num = place_goods_actions[place_position[1] - 1];
+                    cnt = 10;
+                }
+                if (is_time_out_ms(place_goods_time[place_position[1] - 1]))
+                {
+                    cnt = 0;
+                    next_run_mode;
+                }
             }
             break;
         case 26:
@@ -833,22 +865,31 @@ void work(void)
             break;
         case 27:
             //放置物料3
-            if(cnt < 5)
+            if(control.task == 0)
             {
-                action_num = place_goods_actions[place_position[2] - 1];
-                cnt = 10;
-            }
-            if (is_time_out_ms(place_goods_time[place_position[2] - 1]))
-            {
-                cnt = 0;
-                if(control.task == 0)
+                if(cnt < 5)
                 {
+                    action_num = place_goods_actions[place_position_task0[2] - 1];
+                    cnt = 10;
+                }
+                if (is_time_out_ms(place_goods_time[place_position_task0[2] - 1]))
+                {
+                    cnt = 0;
                     //机械手归位
                     action_num = 0;
                     set_run_mode(34);
                 }
-                else
+            }
+            else
+            {
+                if(cnt < 5)
                 {
+                    action_num = place_goods_actions[place_position[2] - 1];
+                    cnt = 10;
+                }
+                if (is_time_out_ms(place_goods_time[place_position[2] - 1]))
+                {
+                    cnt = 0;
                     next_run_mode;
                 }
             }
