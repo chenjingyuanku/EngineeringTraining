@@ -1816,7 +1816,7 @@
       <Doc>
         <Name>../Src/main.c</Name>
         <ColumnNumber>24</ColumnNumber>
-        <TopLine>188</TopLine>
+        <TopLine>26</TopLine>
         <CurrentLine>207</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
@@ -1824,9 +1824,9 @@
       </Doc>
       <Doc>
         <Name>..\Src\control.c</Name>
-        <ColumnNumber>13</ColumnNumber>
-        <TopLine>1062</TopLine>
-        <CurrentLine>1087</CurrentLine>
+        <ColumnNumber>42</ColumnNumber>
+        <TopLine>1064</TopLine>
+        <CurrentLine>1086</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

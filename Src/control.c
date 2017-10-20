@@ -1083,7 +1083,7 @@ void work(void)
             }
             break;
         case 63:
-            if (is_time_out_ms(place_goods_actions[place_position[goods_num] - 1]))
+            if (is_time_out_ms(place_goods_time[place_position[goods_num] - 1]))
             {
                 current_step = downhill_road;
                 next_run_mode;
