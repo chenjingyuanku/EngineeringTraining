@@ -391,7 +391,7 @@ void baffle_first_stop(uint8_t mode)
     {
         if(spd > baffle_speed)
             spd = baffle_speed;
-        spd -= 25;
+        spd -= 40;
         if(spd > 0)
             motor(spd, (spd), 0);
         else

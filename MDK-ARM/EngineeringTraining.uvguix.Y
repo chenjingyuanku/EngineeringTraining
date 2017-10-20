@@ -1824,9 +1824,9 @@
       </Doc>
       <Doc>
         <Name>..\Src\control.c</Name>
-        <ColumnNumber>36</ColumnNumber>
-        <TopLine>927</TopLine>
-        <CurrentLine>953</CurrentLine>
+        <ColumnNumber>31</ColumnNumber>
+        <TopLine>381</TopLine>
+        <CurrentLine>393</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
