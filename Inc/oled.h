@@ -90,7 +90,7 @@ void OLED_ShowNum(uint8_t x,uint8_t y,uint32_t num,uint8_t len,uint8_t size);
 void OLED_ShowString(uint8_t x,uint8_t y, uint8_t *p);
 void OLED_Set_Pos(uint8_t x, uint8_t y);
 void OLED_ShowCHinese(uint8_t x,uint8_t y,uint8_t no);
-void OLED_DrawBMP(uint8_t x0, uint8_t y0,uint8_t x1, uint8_t y1,uint8_t BMP[]);
+void OLED_DrawBMP(uint8_t x0, uint8_t y0,uint8_t x1, uint8_t y1,const uint8_t BMP[]);
 void OLED_DrawPoint(uint8_t x,uint8_t y,uint8_t write);
 void OLED_DrawLine(uint8_t x1,uint8_t y1,uint8_t x2,uint8_t y2);
 void OLED_DrawBlock(uint8_t x1,uint8_t y1,uint8_t x2,uint8_t y2);
@@ -103,6 +103,8 @@ void OLED_DisplayChar(uint8_t x,uint8_t y,uint8_t chr);
 void OLED_ClearScreen(void);
 void OLED_Updata(void);
 void OLED_UpdataPart(uint8_t row1,uint8_t col1,uint8_t row2,uint8_t col2,uint8_t direct);
+extern const uint8_t fast_bmp[288];
+extern const uint8_t slow_bmp[288];
 #endif  
 	 
 

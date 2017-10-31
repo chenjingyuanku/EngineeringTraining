@@ -4,7 +4,7 @@
 #include "ui.h"
 #define FLASH_WriteAddress 0x803F000//0x8070000
 #define FLASH_ReadAddress FLASH_WriteAddress
-#define FLASH_TESTSIZE 128
+#define FLASH_TESTSIZE 256
 #define STM32_FLASH_SIZE 512 // 所选STM32的FLASH容量大小(单位为K)
 uint16_t Tx_Buffer[FLASH_TESTSIZE] = {0};
 uint16_t Rx_Buffer[FLASH_TESTSIZE] = {0};
@@ -241,26 +241,26 @@ void save_parama(void)
         write_u16_to_tx_buf(second_station_speed,63);
         
         
-        write_u16_to_tx_buf(get_goods_time[0],65);
-        write_u16_to_tx_buf(get_goods_time[1],67);
-        write_u16_to_tx_buf(get_goods_time[2],69);
-        write_u16_to_tx_buf(get_goods_time[3],71);
-        write_u16_to_tx_buf(get_goods_time[4],73);
-        write_u16_to_tx_buf(get_goods_time[5],75);
+        write_u16_to_tx_buf(get_goods_time[0][0],65);
+        write_u16_to_tx_buf(get_goods_time[0][1],67);
+        write_u16_to_tx_buf(get_goods_time[0][2],69);
+        write_u16_to_tx_buf(get_goods_time[0][3],71);
+        write_u16_to_tx_buf(get_goods_time[0][4],73);
+        write_u16_to_tx_buf(get_goods_time[0][5],75);
         
-        write_u16_to_tx_buf(lift_goods_time[0],77);
-        write_u16_to_tx_buf(lift_goods_time[1],79);
-        write_u16_to_tx_buf(lift_goods_time[2],81);
-        write_u16_to_tx_buf(lift_goods_time[3],83);
-        write_u16_to_tx_buf(lift_goods_time[4],85);
-        write_u16_to_tx_buf(lift_goods_time[5],87);
+        write_u16_to_tx_buf(lift_goods_time[0][0],77);
+        write_u16_to_tx_buf(lift_goods_time[0][1],79);
+        write_u16_to_tx_buf(lift_goods_time[0][2],81);
+        write_u16_to_tx_buf(lift_goods_time[0][3],83);
+        write_u16_to_tx_buf(lift_goods_time[0][4],85);
+        write_u16_to_tx_buf(lift_goods_time[0][5],87);
         
-        write_u16_to_tx_buf(place_goods_time[0],89);
-        write_u16_to_tx_buf(place_goods_time[1],91);
-        write_u16_to_tx_buf(place_goods_time[2],93);
-        write_u16_to_tx_buf(place_goods_time[3],95);
-        write_u16_to_tx_buf(place_goods_time[4],97);
-        write_u16_to_tx_buf(place_goods_time[5],99);
+        write_u16_to_tx_buf(place_goods_time[0][0],89);
+        write_u16_to_tx_buf(place_goods_time[0][1],91);
+        write_u16_to_tx_buf(place_goods_time[0][2],93);
+        write_u16_to_tx_buf(place_goods_time[0][3],95);
+        write_u16_to_tx_buf(place_goods_time[0][4],97);
+        write_u16_to_tx_buf(place_goods_time[0][5],99);
         
         write_u16_to_tx_buf(get_and_lift_goods_time[0],101);
         write_u16_to_tx_buf(get_and_lift_goods_time[1],103);
@@ -277,6 +277,32 @@ void save_parama(void)
         write_u16_to_tx_buf(up_unfixed_duty,118);
         write_u16_to_tx_buf(down_fixed_duty,120);
         write_u16_to_tx_buf(up_fixed_duty,122);
+
+
+        
+        write_u16_to_tx_buf(get_goods_time[1][0],124);
+        write_u16_to_tx_buf(get_goods_time[1][1],126);
+        write_u16_to_tx_buf(get_goods_time[1][2],128);
+        write_u16_to_tx_buf(get_goods_time[1][3],130);
+        write_u16_to_tx_buf(get_goods_time[1][4],132);
+        write_u16_to_tx_buf(get_goods_time[1][5],134);
+        
+        write_u16_to_tx_buf(lift_goods_time[1][0],136);
+        write_u16_to_tx_buf(lift_goods_time[1][1],138);
+        write_u16_to_tx_buf(lift_goods_time[1][2],140);
+        write_u16_to_tx_buf(lift_goods_time[1][3],142);
+        write_u16_to_tx_buf(lift_goods_time[1][4],144);
+        write_u16_to_tx_buf(lift_goods_time[1][5],146);
+        
+        write_u16_to_tx_buf(place_goods_time[1][0],148);
+        write_u16_to_tx_buf(place_goods_time[1][1],150);
+        write_u16_to_tx_buf(place_goods_time[1][2],152);
+        write_u16_to_tx_buf(place_goods_time[1][3],154);
+        write_u16_to_tx_buf(place_goods_time[1][4],156);
+        write_u16_to_tx_buf(place_goods_time[1][5],158);
+        
+        Tx_Buffer[161] = action_speed_mode;
+        
         
         
         STMFLASH_Write(FLASH_WriteAddress, Tx_Buffer, FLASH_TESTSIZE);
@@ -321,26 +347,26 @@ void read_parama(void)
     read_u16_to_tx_buf(&second_station_speed,63);
         
         
-    read_u16_to_tx_buf(&get_goods_time[0],65);
-    read_u16_to_tx_buf(&get_goods_time[1],67);
-    read_u16_to_tx_buf(&get_goods_time[2],69);
-    read_u16_to_tx_buf(&get_goods_time[3],71);
-    read_u16_to_tx_buf(&get_goods_time[4],73);
-    read_u16_to_tx_buf(&get_goods_time[5],75);
+    read_u16_to_tx_buf(&get_goods_time[0][0],65);
+    read_u16_to_tx_buf(&get_goods_time[0][1],67);
+    read_u16_to_tx_buf(&get_goods_time[0][2],69);
+    read_u16_to_tx_buf(&get_goods_time[0][3],71);
+    read_u16_to_tx_buf(&get_goods_time[0][4],73);
+    read_u16_to_tx_buf(&get_goods_time[0][5],75);
     
-    read_u16_to_tx_buf(&lift_goods_time[0],77);
-    read_u16_to_tx_buf(&lift_goods_time[1],79);
-    read_u16_to_tx_buf(&lift_goods_time[2],81);
-    read_u16_to_tx_buf(&lift_goods_time[3],83);
-    read_u16_to_tx_buf(&lift_goods_time[4],85);
-    read_u16_to_tx_buf(&lift_goods_time[5],87);
+    read_u16_to_tx_buf(&lift_goods_time[0][0],77);
+    read_u16_to_tx_buf(&lift_goods_time[0][1],79);
+    read_u16_to_tx_buf(&lift_goods_time[0][2],81);
+    read_u16_to_tx_buf(&lift_goods_time[0][3],83);
+    read_u16_to_tx_buf(&lift_goods_time[0][4],85);
+    read_u16_to_tx_buf(&lift_goods_time[0][5],87);
     
-    read_u16_to_tx_buf(&place_goods_time[0],89);
-    read_u16_to_tx_buf(&place_goods_time[1],91);
-    read_u16_to_tx_buf(&place_goods_time[2],93);
-    read_u16_to_tx_buf(&place_goods_time[3],95);
-    read_u16_to_tx_buf(&place_goods_time[4],97);
-    read_u16_to_tx_buf(&place_goods_time[5],99);
+    read_u16_to_tx_buf(&place_goods_time[0][0],89);
+    read_u16_to_tx_buf(&place_goods_time[0][1],91);
+    read_u16_to_tx_buf(&place_goods_time[0][2],93);
+    read_u16_to_tx_buf(&place_goods_time[0][3],95);
+    read_u16_to_tx_buf(&place_goods_time[0][4],97);
+    read_u16_to_tx_buf(&place_goods_time[0][5],99);
     
     read_u16_to_tx_buf(&get_and_lift_goods_time[0],101);
     read_u16_to_tx_buf(&get_and_lift_goods_time[1],103);
@@ -358,5 +384,30 @@ void read_parama(void)
     read_u16_to_tx_buf(&up_unfixed_duty,118);
     read_u16_to_tx_buf(&down_fixed_duty,120);
     read_u16_to_tx_buf(&up_fixed_duty,122);
+
+    read_u16_to_tx_buf(&get_goods_time[1][0],124);
+    read_u16_to_tx_buf(&get_goods_time[1][1],126);
+    read_u16_to_tx_buf(&get_goods_time[1][2],128);
+    read_u16_to_tx_buf(&get_goods_time[1][3],130);
+    read_u16_to_tx_buf(&get_goods_time[1][4],132);
+    read_u16_to_tx_buf(&get_goods_time[1][5],134);
+    
+    read_u16_to_tx_buf(&lift_goods_time[1][0],136);
+    read_u16_to_tx_buf(&lift_goods_time[1][1],138);
+    read_u16_to_tx_buf(&lift_goods_time[1][2],140);
+    read_u16_to_tx_buf(&lift_goods_time[1][3],142);
+    read_u16_to_tx_buf(&lift_goods_time[1][4],144);
+    read_u16_to_tx_buf(&lift_goods_time[1][5],146);
+    
+    read_u16_to_tx_buf(&place_goods_time[1][0],148);
+    read_u16_to_tx_buf(&place_goods_time[1][1],150);
+    read_u16_to_tx_buf(&place_goods_time[1][2],152);
+    read_u16_to_tx_buf(&place_goods_time[1][3],154);
+    read_u16_to_tx_buf(&place_goods_time[1][4],156);
+    read_u16_to_tx_buf(&place_goods_time[1][5],158);
+    
+    action_speed_mode = Rx_Buffer[161];
+    
+    
     
 }

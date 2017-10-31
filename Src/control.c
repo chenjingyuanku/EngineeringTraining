@@ -49,21 +49,25 @@ uint64_t system_runtime_ms = 0;
 uint8_t beep_flag = 0;
 uint8_t long_beep_flag = 0;
 uint8_t current_step = 0;
+uint8_t action_speed_mode = 0;
 
 //抓取货物动作组编号
-const uint8_t get_goods_actions[6]={1,2,3,4,5,6};
+const uint8_t get_goods_actions[2][6]={{1,2,3,4,5,6},{51,52,53,54,55,56}};
 //举起货物动作组编号
-const uint8_t lift_goods_actions[6]={11,12,13,14,15,16};
+const uint8_t lift_goods_actions[2][6]={{11,12,13,14,15,16},{61,62,63,64,65,66}};
 //放置货物动作组编号
-const uint8_t place_goods_actions[6]={21,22,23,24,25,26};
+const uint8_t place_goods_actions[2][6]={{21,22,23,24,25,26},{71,72,73,74,75,76}};
 //单抓 + 举起货物动作组编号
 const uint8_t get_and_lift_goods_actions[6]={31,32,33,34,35,36};
 //每组抓取动作执行时间
-uint16_t get_goods_time[6]={5300,5200,5300,5800,5800,5800};
+uint16_t get_goods_time[2][6]={{2700,2800,2600,2800,2750,3200},
+                                {5300,5200,5300,5800,5800,5800}};
 //举起货物时间
-uint16_t lift_goods_time[6]={3800,3800,3800,3800,3800,3800};
+uint16_t lift_goods_time[2][6]={{1750,1300,1250,1700,1800,1650},
+                                {5300,5200,5300,5800,5800,5800}};
 //放置货物时间
-uint16_t place_goods_time[6]={4100,4100,4100,4100,4100,4100};
+uint16_t place_goods_time[2][6]={{2850,3300,2600,2400,2200,2500},
+                                {5300,5200,5300,5800,5800,5800}};
 //单抓 + 举起货物动作时间
 uint16_t get_and_lift_goods_time[6]={5000,5000,5000,5000,5000,5000};
 
@@ -396,7 +400,7 @@ void baffle_first_stop(uint8_t mode)
     {
         if(spd > baffle_speed)
             spd = baffle_speed;
-        spd -= 40;
+        spd -= 55;
         if(spd > 0)
             motor(spd, (spd), 0);
         else
@@ -414,7 +418,7 @@ void baffle_second_stop(uint8_t mode)
     {
         if(spd > baffle_speed)
             spd = baffle_speed;
-        spd -= baffle_speed/25;
+        spd -= baffle_speed/5;
         if(spd > 0)
             motor(spd, (spd), 0);
         else
@@ -598,10 +602,10 @@ void work(void)
             if(cnt < 5)
             {
                 //发送一次运动指令
-                action_num = get_goods_actions[0];
+                action_num = get_goods_actions[action_speed_mode][0];
                 cnt = 10;
             }
-            if (is_time_out_ms(get_goods_time[0]))
+            if (is_time_out_ms(get_goods_time[action_speed_mode][0]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -611,10 +615,10 @@ void work(void)
             //停车2秒 抓下排蓝
             if(cnt < 5)
             {
-                action_num = get_goods_actions[1];
+                action_num = get_goods_actions[action_speed_mode][1];
                 cnt = 10;
             }
-            if (is_time_out_ms(get_goods_time[1]))
+            if (is_time_out_ms(get_goods_time[action_speed_mode][1]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -624,10 +628,10 @@ void work(void)
             //停车2秒 抓下排绿
             if(cnt < 5)
             {
-                action_num = get_goods_actions[2];
+                action_num = get_goods_actions[action_speed_mode][2];
                 cnt = 10;
             }
-            if (is_time_out_ms(get_goods_time[2]))
+            if (is_time_out_ms(get_goods_time[action_speed_mode][2]))
             {
                 cnt = 0;
                 if(control.task == 1)
@@ -638,9 +642,7 @@ void work(void)
                 {
                     fixed;
                     cnt = 0;
-                    //机械手归位
-                    action_num = 0;
-                    set_run_mode(9);
+                    next_run_mode;
                 }
             }
             break;
@@ -648,10 +650,10 @@ void work(void)
             //停车2秒 抓上排红
             if(cnt < 5)
             {
-                action_num = get_goods_actions[3];
+                action_num = get_goods_actions[action_speed_mode][3];
                 cnt = 10;
             }
-            if (is_time_out_ms(get_goods_time[3]))
+            if (is_time_out_ms(get_goods_time[action_speed_mode][3]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -661,10 +663,10 @@ void work(void)
             //停车2秒 抓上排蓝
             if(cnt < 5)
             {
-                action_num = get_goods_actions[4];
+                action_num = get_goods_actions[action_speed_mode][4];
                 cnt = 10;
             }
-            if (is_time_out_ms(get_goods_time[4]))
+            if (is_time_out_ms(get_goods_time[action_speed_mode][4]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -674,10 +676,10 @@ void work(void)
             //停车2秒 抓上排绿
             if(cnt < 5)
             {
-                action_num = get_goods_actions[5];
+                action_num = get_goods_actions[action_speed_mode][5];
                 cnt = 10;
             }
-            if (is_time_out_ms(get_goods_time[5]))
+            if (is_time_out_ms(get_goods_time[action_speed_mode][5]))
             {
                 fixed;
                 cnt = 0;
@@ -685,23 +687,23 @@ void work(void)
             }
             break;
         case 9:
-            if (is_time_out_ms(300))
+            if (is_time_out_ms(200))
             {
                 unfixed;
+                next_run_mode;
+            }
+            break;
+        case 10:
+            if (is_time_out_ms(300))
+            {
+                fixed;
                 //机械手归位
                 action_num = arm_reset_action_number;
                 next_run_mode;
             }
             break;
-        case 10:
-            if (is_time_out_ms(800))
-            {
-                fixed;
-                next_run_mode;
-            }
-            break;
         case 11:
-            if (is_time_out_ms(400))
+            if (is_time_out_ms(200))
             {
                 next_run_mode;
             }
@@ -719,7 +721,7 @@ void work(void)
         case 13:
             //停半秒
             baffle_first_stop(1);
-            if (is_time_out_ms(400))
+            if (is_time_out_ms(200))
             {
                 next_run_mode;
             }
@@ -730,7 +732,7 @@ void work(void)
             break;
         case 15:
             //停顿0.3秒
-            if (is_time_out_ms(300))
+            if (is_time_out_ms(200))
             {
                 next_run_mode;
             }
@@ -747,7 +749,7 @@ void work(void)
         case 17:
             //停顿半秒
             baffle_second_stop(1);
-            if (is_time_out_ms(300))
+            if (is_time_out_ms(200))
             {
                 next_run_mode;
             }
@@ -794,10 +796,10 @@ void work(void)
             //举起物料1
             if(cnt < 5)
             {
-                action_num = lift_goods_actions[0];
+                action_num = lift_goods_actions[action_speed_mode][0];
                 cnt = 10;
             }
-            if (is_time_out_ms(lift_goods_time[0]))
+            if (is_time_out_ms(lift_goods_time[action_speed_mode][0]))
             {
                 cnt = 0;
                 current_step = downhill_road;
@@ -810,10 +812,10 @@ void work(void)
             {
                 if(cnt < 5)
                 {
-                    action_num = place_goods_actions[place_position_task0[0] - 1];
+                    action_num = place_goods_actions[action_speed_mode][place_position_task0[0] - 1];
                     cnt = 10;
                 }
-                if (is_time_out_ms(place_goods_time[place_position_task0[0] - 1]))
+                if (is_time_out_ms(place_goods_time[action_speed_mode][place_position_task0[0] - 1]))
                 {
                     cnt = 0;
                     next_run_mode;
@@ -823,10 +825,10 @@ void work(void)
             {
                 if(cnt < 5)
                 {
-                    action_num = place_goods_actions[place_position[0] - 1];
+                    action_num = place_goods_actions[action_speed_mode][place_position[0] - 1];
                     cnt = 10;
                 }
-                if (is_time_out_ms(place_goods_time[place_position[0] - 1]))
+                if (is_time_out_ms(place_goods_time[action_speed_mode][place_position[0] - 1]))
                 {
                     cnt = 0;
                     next_run_mode;
@@ -839,10 +841,10 @@ void work(void)
             //举起物料2
             if(cnt < 5)
             {
-                action_num = lift_goods_actions[1];
+                action_num = lift_goods_actions[action_speed_mode][1];
                 cnt = 10;
             }
-            if (is_time_out_ms(lift_goods_time[1]))
+            if (is_time_out_ms(lift_goods_time[action_speed_mode][1]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -854,10 +856,10 @@ void work(void)
             {
                 if(cnt < 5)
                 {
-                    action_num = place_goods_actions[place_position_task0[1] - 1];
+                    action_num = place_goods_actions[action_speed_mode][place_position_task0[1] - 1];
                     cnt = 10;
                 }
-                if (is_time_out_ms(place_goods_time[place_position_task0[1] - 1]))
+                if (is_time_out_ms(place_goods_time[action_speed_mode][place_position_task0[1] - 1]))
                 {
                     cnt = 0;
                     next_run_mode;
@@ -867,10 +869,10 @@ void work(void)
             {
                 if(cnt < 5)
                 {
-                    action_num = place_goods_actions[place_position[1] - 1];
+                    action_num = place_goods_actions[action_speed_mode][place_position[1] - 1];
                     cnt = 10;
                 }
-                if (is_time_out_ms(place_goods_time[place_position[1] - 1]))
+                if (is_time_out_ms(place_goods_time[action_speed_mode][place_position[1] - 1]))
                 {
                     cnt = 0;
                     next_run_mode;
@@ -881,10 +883,10 @@ void work(void)
             //举起物料3
             if(cnt < 5)
             {
-                action_num = lift_goods_actions[2];
+                action_num = lift_goods_actions[action_speed_mode][2];
                 cnt = 10;
             }
-            if (is_time_out_ms(lift_goods_time[2]))
+            if (is_time_out_ms(lift_goods_time[action_speed_mode][2]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -896,14 +898,14 @@ void work(void)
             {
                 if(cnt < 5)
                 {
-                    action_num = place_goods_actions[place_position_task0[2] - 1];
+                    action_num = place_goods_actions[action_speed_mode][place_position_task0[2] - 1];
                     cnt = 10;
                 }
-                if (is_time_out_ms(place_goods_time[place_position_task0[2] - 1]))
+                if (is_time_out_ms(place_goods_time[action_speed_mode][place_position_task0[2] - 1]))
                 {
                     cnt = 0;
                     //机械手归位
-                    action_num = 0;
+                    action_num = arm_reset_action_number;
                     set_run_mode(34);
                 }
             }
@@ -911,10 +913,10 @@ void work(void)
             {
                 if(cnt < 5)
                 {
-                    action_num = place_goods_actions[place_position[2] - 1];
+                    action_num = place_goods_actions[action_speed_mode][place_position[2] - 1];
                     cnt = 10;
                 }
-                if (is_time_out_ms(place_goods_time[place_position[2] - 1]))
+                if (is_time_out_ms(place_goods_time[action_speed_mode][place_position[2] - 1]))
                 {
                     cnt = 0;
                     next_run_mode;
@@ -925,10 +927,10 @@ void work(void)
             //举起物料4
             if(cnt < 5)
             {
-                action_num = lift_goods_actions[3];
+                action_num = lift_goods_actions[action_speed_mode][3];
                 cnt = 10;
             }
-            if (is_time_out_ms(lift_goods_time[3]))
+            if (is_time_out_ms(lift_goods_time[action_speed_mode][3]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -938,10 +940,10 @@ void work(void)
             //放置物料4
             if(cnt < 5)
             {
-                action_num = place_goods_actions[place_position[3] - 1];
+                action_num = place_goods_actions[action_speed_mode][place_position[3] - 1];
                 cnt = 10;
             }
-            if (is_time_out_ms(place_goods_time[place_position[3] - 1]))
+            if (is_time_out_ms(place_goods_time[action_speed_mode][place_position[3] - 1]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -951,10 +953,10 @@ void work(void)
             //举起物料5
             if(cnt < 5)
             {
-                action_num = lift_goods_actions[4];
+                action_num = lift_goods_actions[action_speed_mode][4];
                 cnt = 10;
             }
-            if (is_time_out_ms(lift_goods_time[4]))
+            if (is_time_out_ms(lift_goods_time[action_speed_mode][4]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -967,10 +969,10 @@ void work(void)
             //放置物料5
             if(cnt < 5)
             {
-                action_num = place_goods_actions[place_position[4] - 1];
+                action_num = place_goods_actions[action_speed_mode][place_position[4] - 1];
                 cnt = 10;
             }
-            if (is_time_out_ms(place_goods_time[place_position[4] - 1]))
+            if (is_time_out_ms(place_goods_time[action_speed_mode][place_position[4] - 1]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -980,10 +982,10 @@ void work(void)
             //举起物料6
             if(cnt < 5)
             {
-                action_num = lift_goods_actions[5];
+                action_num = lift_goods_actions[action_speed_mode][5];
                 cnt = 10;
             }
-            if (is_time_out_ms(lift_goods_time[5]))
+            if (is_time_out_ms(lift_goods_time[action_speed_mode][5]))
             {
                 cnt = 0;
                 next_run_mode;
@@ -993,19 +995,19 @@ void work(void)
             //放置物料6
             if(cnt < 5)
             {
-                action_num = place_goods_actions[place_position[5] - 1];
+                action_num = place_goods_actions[action_speed_mode][place_position[5] - 1];
                 cnt = 10;
             }
-            if (is_time_out_ms(place_goods_time[place_position[5] - 1]))
+            if (is_time_out_ms(place_goods_time[action_speed_mode][place_position[5] - 1]))
             {
                 cnt = 0;
                 //机械手归位
-                action_num = 0;
+                action_num = arm_reset_action_number;
                 next_run_mode;
             }
             break;
         case 34:
-            if (is_time_out_ms(1500))
+            if (is_time_out_ms(350))
             {
                 next_run_mode;
             }
@@ -1156,12 +1158,12 @@ void work(void)
             {
                 current_step = second_station;
                 //放置物料
-                action_num = place_goods_actions[place_position[goods_num] - 1];
+                action_num = place_goods_actions[action_speed_mode][place_position[goods_num] - 1];
                 next_run_mode;
             }
             break;
         case 63:
-            if (is_time_out_ms(place_goods_time[place_position[goods_num] - 1]))
+            if (is_time_out_ms(place_goods_time[action_speed_mode][place_position[goods_num] - 1]))
             {
                 current_step = downhill_road;
                 next_run_mode;

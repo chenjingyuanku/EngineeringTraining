@@ -85,15 +85,15 @@ extern uint16_t first_station_stop_speed;
 
 
 //每组抓取动作执行时间
-extern uint16_t get_goods_time[6];
+extern uint16_t get_goods_time[2][6];
 //举起货物时间
-extern uint16_t lift_goods_time[6];
+extern uint16_t lift_goods_time[2][6];
 //放置货物时间
-extern uint16_t place_goods_time[6];
+extern uint16_t place_goods_time[2][6];
 //单抓 + 举起货物动作时间
 extern uint16_t get_and_lift_goods_time[6];
 
-
+extern uint8_t action_speed_mode;
 
 
 extern uint16_t down_unfixed_duty ;

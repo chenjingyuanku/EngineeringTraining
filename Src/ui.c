@@ -25,27 +25,26 @@ void ui_display(void)
     
     //启动状态显示
     if(control.run_flag)
-        oled_printf(9,0,">>>");
+        oled_printf(9,0,">>>>");
     else
-        oled_printf(9,0,"---");
+        oled_printf(9,0,"----");
     
     
     
-    
-    oled_printf(0,1,"%d",control.run_mode);
+    oled_printf(0,1,action_speed_mode ? "SLOW %d" : "FAST %d",control.run_mode);
     //车头两个灰度传感器
     if(is_IR_sensor_valid)
     {
-        oled_printf(9,1,"---");
+        oled_printf(10,1,"--");
     }
         
     if(HAL_GPIO_ReadPin(head2_GPIO_Port,head2_Pin) == GPIO_PIN_SET)
     {
-        oled_printf(4,1,"==<");
+        oled_printf(7,1,"=<");
     }
     if(HAL_GPIO_ReadPin(head1_GPIO_Port,head1_Pin) == GPIO_PIN_SET)
     {
-        oled_printf(14,1,">==");
+        oled_printf(13,1,">=");
     }
     if(HAL_GPIO_ReadPin(right_sensor_GPIO_Port,right_sensor_Pin) == GPIO_PIN_SET)
     {
@@ -124,30 +123,30 @@ void ui_display(void)
             oled_printf(0,control.item_index == 0 ? 4 : 7,"      ^^^^^^^");
             break;
         case get_goods_time_page:
-            oled_printf(0,2,"get down L    %d",get_goods_time[0]);
-            oled_printf(0,3,"get down M    %d",get_goods_time[1]);
-            oled_printf(0,4,"get down R    %d",get_goods_time[2]);
-            oled_printf(0,5,"get up   L    %d",get_goods_time[3]);
-            oled_printf(0,6,"get up   M    %d",get_goods_time[4]);
-            oled_printf(0,7,"get up   R    %d",get_goods_time[5]);
+            oled_printf(0,2,"get down L    %d",get_goods_time[action_speed_mode][0]);
+            oled_printf(0,3,"get down M    %d",get_goods_time[action_speed_mode][1]);
+            oled_printf(0,4,"get down R    %d",get_goods_time[action_speed_mode][2]);
+            oled_printf(0,5,"get up   L    %d",get_goods_time[action_speed_mode][3]);
+            oled_printf(0,6,"get up   M    %d",get_goods_time[action_speed_mode][4]);
+            oled_printf(0,7,"get up   R    %d",get_goods_time[action_speed_mode][5]);
             oled_printf(13,control.item_index + 2,">");
             break;
         case lift_goods_time_page:
-            oled_printf(0,2,"lift down L    %d",lift_goods_time[0]);
-            oled_printf(0,3,"lift down M    %d",lift_goods_time[1]);
-            oled_printf(0,4,"lift down R    %d",lift_goods_time[2]);
-            oled_printf(0,5,"lift up   L    %d",lift_goods_time[3]);
-            oled_printf(0,6,"lift up   M    %d",lift_goods_time[4]);
-            oled_printf(0,7,"lift up   R    %d",lift_goods_time[5]);
+            oled_printf(0,2,"lift down L    %d",lift_goods_time[action_speed_mode][0]);
+            oled_printf(0,3,"lift down M    %d",lift_goods_time[action_speed_mode][1]);
+            oled_printf(0,4,"lift down R    %d",lift_goods_time[action_speed_mode][2]);
+            oled_printf(0,5,"lift up   L    %d",lift_goods_time[action_speed_mode][3]);
+            oled_printf(0,6,"lift up   M    %d",lift_goods_time[action_speed_mode][4]);
+            oled_printf(0,7,"lift up   R    %d",lift_goods_time[action_speed_mode][5]);
             oled_printf(14,control.item_index + 2,">");
             break;
         case place_goods_time_page:
-            oled_printf(0,2,"place down L    %d",place_goods_time[0]);
-            oled_printf(0,3,"place down M    %d",place_goods_time[1]);
-            oled_printf(0,4,"place down R    %d",place_goods_time[2]);
-            oled_printf(0,5,"place up   L    %d",place_goods_time[3]);
-            oled_printf(0,6,"place up   M    %d",place_goods_time[4]);
-            oled_printf(0,7,"place up   R    %d",place_goods_time[5]);
+            oled_printf(0,2,"place down L    %d",place_goods_time[action_speed_mode][0]);
+            oled_printf(0,3,"place down M    %d",place_goods_time[action_speed_mode][1]);
+            oled_printf(0,4,"place down R    %d",place_goods_time[action_speed_mode][2]);
+            oled_printf(0,5,"place up   L    %d",place_goods_time[action_speed_mode][3]);
+            oled_printf(0,6,"place up   M    %d",place_goods_time[action_speed_mode][4]);
+            oled_printf(0,7,"place up   R    %d",place_goods_time[action_speed_mode][5]);
             oled_printf(15,control.item_index + 2,">");
             break;
         case get_and_lift_goods_time_page:
@@ -165,6 +164,9 @@ void ui_display(void)
             oled_printf(0,4,"Up   Unfixed    %d",up_unfixed_duty);
             oled_printf(0,5,"Up     Fixed    %d",up_fixed_duty);
             oled_printf(15,control.item_index + 2,">");
+            break;
+        case action_speed_mode_setting_page:
+            OLED_DrawBMP(40,2,88,8,action_speed_mode ? slow_bmp : fast_bmp);
             break;
         
     }
