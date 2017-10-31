@@ -75,7 +75,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-uint8_t servo_tx_buf[7] = {0x55,0x55,0x05,0x06,0x00,0x01,0x00};
+    uint8_t servo_tx_buf[7] = {0x55,0x55,0x05,0x06,0x00,0x01,0x00};
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -281,6 +281,13 @@ void _Error_Handler(char * file, int line)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
+    OLED_Clear();
+    OLED_ClearScreen();
+    oled_printf(0,0,"file name:");
+    oled_printf(0,1,"%s",file);
+    oled_printf(0,2,"line:");
+    oled_printf(0,1,"%d",line);
+    OLED_Updata();
   while(1) 
   {
   }

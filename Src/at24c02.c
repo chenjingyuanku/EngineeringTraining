@@ -273,6 +273,12 @@ void save_parama(void)
         Tx_Buffer[114] = place_position_task0[1];
         Tx_Buffer[115] = place_position_task0[2];
         
+        write_u16_to_tx_buf(down_unfixed_duty,116);
+        write_u16_to_tx_buf(up_unfixed_duty,118);
+        write_u16_to_tx_buf(down_fixed_duty,120);
+        write_u16_to_tx_buf(up_fixed_duty,122);
+        
+        
         STMFLASH_Write(FLASH_WriteAddress, Tx_Buffer, FLASH_TESTSIZE);
         save_flag = 0;
         save_show_flag = 1;
@@ -348,5 +354,9 @@ void read_parama(void)
     place_position_task0[1] = Rx_Buffer[114];
     place_position_task0[2] = Rx_Buffer[115];
         
+    read_u16_to_tx_buf(&down_unfixed_duty,116);
+    read_u16_to_tx_buf(&up_unfixed_duty,118);
+    read_u16_to_tx_buf(&down_fixed_duty,120);
+    read_u16_to_tx_buf(&up_fixed_duty,122);
     
 }

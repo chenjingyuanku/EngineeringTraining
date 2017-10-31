@@ -96,10 +96,10 @@ extern uint16_t get_and_lift_goods_time[6];
 
 
 
-#define down_unfixed_duty 680
-#define up_unfixed_duty 520
-#define down_fixed_duty 1030
-#define up_fixed_duty 875
+extern uint16_t down_unfixed_duty ;
+extern uint16_t up_unfixed_duty ;
+extern uint16_t down_fixed_duty ;
+extern uint16_t up_fixed_duty ;
 
 extern void read_sensor(void);
 

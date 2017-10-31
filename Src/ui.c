@@ -159,6 +159,13 @@ void ui_display(void)
             oled_printf(0,7,"g & l up   R    %d",get_and_lift_goods_time[5]);
             oled_printf(15,control.item_index + 2,">");
             break;
+        case fixer_duty_setting_page:
+            oled_printf(0,2,"Down Unfixed    %d",down_unfixed_duty);
+            oled_printf(0,3,"Down   Fixed    %d",down_fixed_duty);
+            oled_printf(0,4,"Up   Unfixed    %d",up_unfixed_duty);
+            oled_printf(0,5,"Up     Fixed    %d",up_fixed_duty);
+            oled_printf(15,control.item_index + 2,">");
+            break;
         
     }
     OLED_Updata();

@@ -5,6 +5,7 @@
 #include "ui.h"
 #include "control.h"
 #include "at24c02.h"
+#include "tim.h"
 
 Button btn_up;
 Button btn_down;
@@ -84,6 +85,10 @@ void key_up_click(void* btn)
             if(control.item_index >= 5)
                     control.item_index = 5;
             break;
+        case fixer_duty_setting_page:
+            if(control.item_index >= 3)
+                    control.item_index = 3;
+            break;
             
     }
     beep_flag = 1;
@@ -106,8 +111,8 @@ void key_add_click(void* btn)
                 if(control.task == 0)
                 {
                     place_position_task0[control.item_index - 1] ++;
-                    if(place_position_task0[control.item_index - 1] > 3)
-                        place_position_task0[control.item_index - 1] = 3;
+                    if(place_position_task0[control.item_index - 1] > 6)
+                        place_position_task0[control.item_index - 1] = 6;
                 }
                 else
                 {
@@ -153,7 +158,6 @@ void key_add_click(void* btn)
                     break;
                 case 4:turn_left_spd += 10;
                     break;
-                
             }
             break;
         case uphill_page:
@@ -177,6 +181,24 @@ void key_add_click(void* btn)
             break;
         case get_and_lift_goods_time_page:
             get_and_lift_goods_time[control.item_index] += 50;
+            break;
+        
+        case fixer_duty_setting_page:
+            switch(control.item_index)
+            {
+                case 0:down_unfixed_duty += 5;
+                    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_unfixed_duty);
+                    break;
+                case 1:down_fixed_duty += 5;
+                    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_fixed_duty);
+                    break;
+                case 2:up_unfixed_duty += 5;
+                    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_unfixed_duty);
+                    break;
+                case 3:up_fixed_duty += 5;
+                    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_fixed_duty);
+                    break;
+            }
             break;
     }
     beep_flag = 1;
@@ -279,6 +301,31 @@ void key_sub_click(void* btn)
         case get_and_lift_goods_time_page:
             if(get_and_lift_goods_time[control.item_index] >= 1050)
                 get_and_lift_goods_time[control.item_index] -= 50;
+            break;
+        case fixer_duty_setting_page:
+            switch(control.item_index)
+            {
+                case 0:
+                    if(down_unfixed_duty >= 5)
+                        down_unfixed_duty -= 5;
+                    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_unfixed_duty);
+                    break;
+                case 1:
+                    if(down_fixed_duty >= 5)
+                        down_fixed_duty -= 5;
+                    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_fixed_duty);
+                    break;
+                case 2:
+                    if(up_unfixed_duty >= 5)
+                        up_unfixed_duty -= 5;
+                    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_unfixed_duty);
+                    break;
+                case 3:
+                    if(up_fixed_duty >= 5)
+                        up_fixed_duty -= 5;
+                    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_fixed_duty);
+                    break;
+            }
             break;
     }
     beep_flag = 1;

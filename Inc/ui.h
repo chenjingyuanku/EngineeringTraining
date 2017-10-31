@@ -15,6 +15,7 @@ enum menu_page_num
     lift_goods_time_page,
     place_goods_time_page,
     get_and_lift_goods_time_page,
+    fixer_duty_setting_page,
     MAX_PAGE
 };
 

@@ -26,9 +26,12 @@
 #define robot_turn_left_next(spd) {motor(-myAbs(spd),myAbs(spd),1);if(is_turn_left_in_place()){next_run_mode;}}
 #define unfixed {__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_unfixed_duty);__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_unfixed_duty);}
 #define fixed {__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_3,up_fixed_duty);__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_4,down_fixed_duty);}
+#define arm_reset_action_number 99
 
-
-
+uint16_t down_unfixed_duty = 680;
+uint16_t up_unfixed_duty = 520;
+uint16_t down_fixed_duty = 1030;
+uint16_t up_fixed_duty = 875;
 
 uint16_t uphill_speed = 650;
 uint16_t baffle_speed = 400;
@@ -50,11 +53,11 @@ uint8_t current_step = 0;
 //抓取货物动作组编号
 const uint8_t get_goods_actions[6]={1,2,3,4,5,6};
 //举起货物动作组编号
-const uint8_t lift_goods_actions[6]={7,8,9,10,11,12};
+const uint8_t lift_goods_actions[6]={11,12,13,14,15,16};
 //放置货物动作组编号
-const uint8_t place_goods_actions[6]={13,14,15,16,17,18};
+const uint8_t place_goods_actions[6]={21,22,23,24,25,26};
 //单抓 + 举起货物动作组编号
-const uint8_t get_and_lift_goods_actions[6]={19,20,21,22,23,24};
+const uint8_t get_and_lift_goods_actions[6]={31,32,33,34,35,36};
 //每组抓取动作执行时间
 uint16_t get_goods_time[6]={5300,5200,5300,5800,5800,5800};
 //举起货物时间
@@ -594,6 +597,7 @@ void work(void)
             //停车2秒 抓下排红
             if(cnt < 5)
             {
+                //发送一次运动指令
                 action_num = get_goods_actions[0];
                 cnt = 10;
             }
@@ -677,16 +681,15 @@ void work(void)
             {
                 fixed;
                 cnt = 0;
-                //机械手归位
-                action_num = 0;
                 next_run_mode;
             }
             break;
-            
         case 9:
             if (is_time_out_ms(300))
             {
                 unfixed;
+                //机械手归位
+                action_num = arm_reset_action_number;
                 next_run_mode;
             }
             break;
@@ -756,7 +759,7 @@ void work(void)
         case 19:
             //继续循迹至坡道
             run();
-            //如果最左侧灰度检测到黑线加速冲坡
+            //如果最左侧灰度检测到黑线
             if (is_left_left_valid)
             {
                 next_run_mode;
