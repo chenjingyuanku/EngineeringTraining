@@ -642,7 +642,7 @@ void work(void)
                 {
                     fixed;
                     cnt = 0;
-                    next_run_mode;
+                    set_run_mode(9);
                 }
             }
             break;
